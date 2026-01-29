@@ -111,11 +111,10 @@ const StyleSection = () => {
             <button
               key={cat}
               onClick={() => handleCategoryChange(cat)}
-              className={`whitespace-nowrap text-xs md:text-sm px-5 py-2.5 rounded-full border transition-all duration-300 ${
-                activeCategory === cat
-                  ? 'bg-white text-black border-white font-bold shadow-[0_0_15px_rgba(255,255,255,0.3)]'
-                  : 'bg-white/5 text-gray-400 border-white/10 hover:border-white/40 hover:bg-white/10 hover:text-white'
-              }`}
+              className={`whitespace-nowrap text-xs md:text-sm px-5 py-2.5 rounded-full border transition-all duration-300 ${activeCategory === cat
+                ? 'bg-white text-black border-white font-bold shadow-[0_0_15px_rgba(255,255,255,0.3)]'
+                : 'bg-white/5 text-gray-400 border-white/10 hover:border-white/40 hover:bg-white/10 hover:text-white'
+                }`}
             >
               {cat}
             </button>
@@ -145,8 +144,12 @@ const StyleSection = () => {
               {/* Aspect Ratio 4:5 */}
               <div className="relative aspect-[4/5] overflow-hidden rounded-md bg-zinc-900">
                 <motion.img
-                  src={style.image}
+                  src={`https://images.weserv.nl/?url=${encodeURIComponent(style.image)}`}
                   alt={style.title}
+                  loading="lazy"
+                  onError={(e) => {
+                    e.currentTarget.src = 'https://via.placeholder.com/400x500/1a1a1a/666?text=No+Image';
+                  }}
                   className="w-full h-full object-cover transition-all duration-500 grayscale group-hover:grayscale-0 group-hover:scale-105"
                 />
 
@@ -324,11 +327,14 @@ const ReviewSection = () => {
             >
               {/* Image with Grayscale Effect */}
               <img
-                src={review.image}
+                src={`https://images.weserv.nl/?url=${encodeURIComponent(review.image)}`}
                 alt={review.name}
-                className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500 ease-out"
+                loading="lazy"
+                onError={(e) => {
+                  e.currentTarget.src = 'https://via.placeholder.com/400x600/1a1a1a/666?text=No+Image';
+                }}
+                className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105"
               />
-
               {/* Overlay Gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80" />
 
@@ -415,9 +421,13 @@ function App() {
                   className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-zinc-900 shadow-2xl group" // Added 'group'
                 >
                   <img
-                    src="https://i.pinimg.com/736x/4a/ab/1c/4aab1c0f02815ea1ca8805216e6d6d03.jpg"
+                    src="https://i.pinimg.com/736x/71/f9/4f/71f94fe9f13c8be05d8370073c14defc.jpg"
                     alt="Stylist Studio Interior"
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 ease-in-out" // Changed to group-hover
+                    loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.src = 'https://via.placeholder.com/600x750/1a1a1a/666?text=Studio';
+                    }}
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" /> // Added pointer-events-none
                 </motion.div>
